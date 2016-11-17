@@ -1,0 +1,28 @@
+﻿@model IEnumerable<string>
+
+@Html.ActionLink("Все категории", "List", "Product", null, new { @class = "btn btn-block btn-default btn-lg" })
+
+@foreach (var link in Model)
+{
+    string text;
+    switch (link)
+    {
+        case "ActiveSport": text = "Игровые виды спорта"; break;
+        case "WinterSport": text = "Зимние виды спорта"; break;
+        case "BrainSport": text = "Настольные игры"; break;
+        case "SportWear": text = "Одежда и аксессуары"; break;
+        default: text ="Error"; break;
+    }
+    @Html.RouteLink(text,
+    new
+    {
+        controller = "Product",
+        action = "List",
+        category = link,
+        page = 1
+    },
+    new
+    {
+        @class = "btn btn-block btn-default btn-lg" + (link == ViewBag.SelectedCategory ? " btn-primary" : "")
+    })
+}
