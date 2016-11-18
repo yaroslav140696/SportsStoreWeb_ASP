@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Models;
+using System.Threading;
+
 namespace SportsStore.WebUI.Controllers
 {
     public class CartController : Controller
@@ -14,6 +16,7 @@ namespace SportsStore.WebUI.Controllers
         IOrderProcessor orderProcessor;
         public CartController(IProductRepository repos,IOrderProcessor proc)
         {
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("uk-UA");
             repository = repos;
             orderProcessor = proc;
         }
@@ -39,6 +42,15 @@ namespace SportsStore.WebUI.Controllers
             }
             return RedirectToAction("Index", new { returnUrl });
         }  
+        public RedirectToRouteResult DecrementQuantity(Cart cart,int productID,string returnUrl)
+        {
+            Product product = repository.Products.FirstOrDefault(x => x.ProductID == productID);
+            if(product != null)
+            {
+                cart.DecrementQuantity(product);
+            }
+            return RedirectToAction("Index", new { returnUrl });
+        }
         public PartialViewResult Summary(Cart cart)
         {
             return PartialView(cart);
@@ -48,7 +60,7 @@ namespace SportsStore.WebUI.Controllers
         {
             if (cart.Lines.Count() == 0)
             {
-                ModelState.AddModelError("", "Ваша корзина пустая!");
+                ModelState.AddModelError("", "Ваша корзина пуста!");
             }
             if (ModelState.IsValid)
             {

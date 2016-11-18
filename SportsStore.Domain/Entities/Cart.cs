@@ -19,7 +19,14 @@ namespace SportsStore.Domain.Entities
             else
                 cartline.Quantity += quantity;
         }
-
+        public void DecrementQuantity(Product product)
+        {
+            CartLine cartline = lineCollection.Where(x => x.Product.ProductID == product.ProductID).FirstOrDefault();
+            if(cartline.Quantity > 1)
+            {
+                cartline.Quantity--;
+            }
+        }
         public void RemoveLine(Product product)
         {
             lineCollection.RemoveAll(l => l.Product.ProductID == product.ProductID);
