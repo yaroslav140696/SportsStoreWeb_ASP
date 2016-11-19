@@ -1,0 +1,41 @@
+﻿@model SportsStore.Domain.Entities.Product
+
+@{
+    ViewBag.Title = "Admin: Edit " + Model.Name;
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="panel">
+    <div class="panel-heading">
+        <h1>Редактировать @Model.Name</h1>
+    </div>
+    @using (Html.BeginForm())
+    {
+        <div class="panel-body">
+            @Html.HiddenFor(x => x.ProductID)
+            @foreach (var property in ViewData.ModelMetadata.Properties)
+            {
+                if (property.PropertyName != "ProductID")
+                {
+                    <div class="form-group">
+                        <label>@property.DisplayName ?? @property.PropertyName</label>
+                        @if (property.PropertyName == "Description")
+                        {
+                            @Html.TextArea(property.PropertyName, null, new { @class = "form-control", rows = 5 })
+                        }
+                        else
+                        {
+                            @Html.TextBox(property.PropertyName, null, new { @class = "formc-control" })
+                        }
+                    </div>
+                }
+            }
+        </div>
+        <div class="panel-footer">
+            <input value="Сохранить" type="submit" class="btn btn-primary"/>
+
+            @Html.ActionLink("Отмена", "Index",null, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>
+
+

@@ -59,11 +59,13 @@ namespace SportsStore.Domain.Concrete
                     .AppendLine("\n---------------------------------------------------------")
                     .AppendLine("Ship to:")
                     .AppendLine(shippingdetails.Name)
+                    .AppendLine(shippingdetails.City)
+                    .AppendLine(shippingdetails.Country)
+                    .AppendLine(shippingdetails.Email)
                     .AppendLine(shippingdetails.Line1)
                     .AppendLine(shippingdetails.Line2 ?? "")
                     .AppendLine(shippingdetails.Line3 ?? "")
-                    .AppendLine(shippingdetails.City)
-                    .AppendLine(shippingdetails.Country)
+                    
                     .AppendLine(shippingdetails.Zip)
                     .AppendLine("---")
                     .AppendFormat("Gift wrap: {0}", shippingdetails.GiftWrap ? "Yes" : "No");
