@@ -17,14 +17,14 @@
                 if (property.PropertyName != "ProductID")
                 {
                     <div class="form-group">
-                        <label>@property.DisplayName ?? @property.PropertyName</label>
+                        <label>@(property.DisplayName ?? property.PropertyName)</label>
                         @if (property.PropertyName == "Description")
                         {
                             @Html.TextArea(property.PropertyName, null, new { @class = "form-control", rows = 5 })
                         }
                         else
                         {
-                            @Html.TextBox(property.PropertyName, null, new { @class = "formc-control" })
+                            @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
                         }
                     </div>
                 }

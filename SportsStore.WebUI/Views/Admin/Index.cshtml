@@ -24,15 +24,15 @@
                         @item.ProductID
                     </td>
                     <td>
-                        @Html.ActionLink(item.Name,"Edit", new { productID = item.ProductID })
+                        @Html.ActionLink(item.Name, "Edit", new { productID = item.ProductID })
                     </td>
                     <td class="text-right">
-                        @item.Price.ToString("c");
+                        @item.Price.ToString("c")
                     </td>
                     <td class="text-center">
                         @using (Html.BeginForm("Delete", "Admin"))
                         {
-                            @Html.Hidden("productID",item.ProductID)
+                            @Html.Hidden("productID", item.ProductID)
                             <input type="submit" value="Удалить" class="btn btn-xs btn-default" />
                         }
                     </td>
@@ -41,8 +41,6 @@
         </table>
     </div>
     <div class="panel-footer text-center">
-        @Html.ActionLink("Добавить новый товар","Create",null,new { @class = "btn btn-default" })
+        @Html.ActionLink("Добавить новый товар", "Create", null, new { @class = "btn btn-default" })
     </div>
 </div>
-
-

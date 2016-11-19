@@ -3,7 +3,6 @@
 <ul class="nav navbar-nav navbar-right">
     <li>
         <a href="#">
-            
             @Model.Lines.Sum(x => x.Quantity) товар(ов)
             @Model.ComputeTotalValue().ToString("c")
         </a>

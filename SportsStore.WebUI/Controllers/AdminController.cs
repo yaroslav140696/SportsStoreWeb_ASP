@@ -3,6 +3,7 @@ using SportsStore.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,6 +14,7 @@ namespace SportsStore.WebUI.Controllers
         IProductRepository repository;
         public AdminController(IProductRepository repos)
         {
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("uk-UA");
             repository = repos;
         }
         public ActionResult Index()
