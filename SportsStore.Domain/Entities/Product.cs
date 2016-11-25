@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -26,6 +27,18 @@ namespace SportsStore.Domain.Entities
         [Display(Name = "Категория")]
         [Required(ErrorMessage = "Введите категорию товара")]
         public string Category { get; set; }
+
+        [Display(Name = "Количество на складе")]
+        [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "Неверное значение для количества на складе")]
+        public int QuantityInStock { get; set; }
+
+        //[Display(Name ="Главное изображение")]
+        //[Required(ErrorMessage = "Задайте главное изображение)")]
+        //public Media Avatar { get; set; }
+
+        //[Display(Name ="Изображения")]
+        //public List<Media> Pisctures { get; set; }
 
     }
 }

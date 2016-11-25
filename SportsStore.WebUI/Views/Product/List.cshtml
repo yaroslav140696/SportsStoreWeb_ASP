@@ -5,8 +5,10 @@
 
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
-
+    <link href="~/Content/ErrorStyle.css" rel="stylesheet" />
     <title>@ViewBag.Title</title>
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+  
 </head>
 @{
     ViewBag.Title = "Products";
@@ -16,7 +18,7 @@
 {
     @Html.Partial("ProductSummary", p)
 }
-<div class="btn-group pull-right">@Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))</div>
+<div id="l1" class="btn-group pull-right">@Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))</div>
 
 
 

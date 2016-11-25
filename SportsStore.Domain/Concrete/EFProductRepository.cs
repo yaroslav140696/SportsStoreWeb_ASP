@@ -9,21 +9,33 @@ using System.Data.Entity;
 
 namespace SportsStore.Domain.Concrete
 {
-    public class EFProductRepository : IProductRepository
+    public class EFProductRepository : IProductRepository<Product>
     {
         EFDbContext context = new EFDbContext();
         public EFProductRepository()
         {
             Database.SetInitializer(new MyInitializer());
         }
-        public IQueryable<Product> Products
+        public IQueryable<Product> Items
         {
             get
             {
                 return context.Products;
             }
         }
-        public void SaveProduct(Product product)
+
+        public Product DeleteItem(int productID)
+        {
+            var product = context.Products.Find(productID);
+            if (product != null)
+            {
+                context.Products.Remove(product);
+                context.SaveChanges();
+            }
+            return product;
+        }
+
+        public void SaveItem(Product product)
         {
             if(product.ProductID == 0)
             {
@@ -38,6 +50,7 @@ namespace SportsStore.Domain.Concrete
                     dbEntry.Price = product.Price;
                     dbEntry.Category = product.Category;
                     dbEntry.Description = product.Description;
+                    dbEntry.QuantityInStock = product.QuantityInStock;
                 }
             }
             context.SaveChanges();

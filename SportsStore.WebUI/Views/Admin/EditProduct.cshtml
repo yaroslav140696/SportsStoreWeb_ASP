@@ -8,7 +8,7 @@
     <div class="panel-heading">
         <h1>Редактировать @Model.Name</h1>
     </div>
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("EditProduct","Admin"))
     {
         <div class="panel-body">
             @Html.HiddenFor(x => x.ProductID)
@@ -26,13 +26,13 @@
                         {
                             @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
                         }
+                        @Html.ValidationMessage(property.PropertyName)
                     </div>
                 }
             }
         </div>
         <div class="panel-footer">
             <input value="Сохранить" type="submit" class="btn btn-primary"/>
-
             @Html.ActionLink("Отмена", "Index",null, new { @class = "btn btn-default" })
         </div>
     }

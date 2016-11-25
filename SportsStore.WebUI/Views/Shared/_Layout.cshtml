@@ -7,22 +7,29 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
     <link href="~/Content/ErrorStyle.css" rel="stylesheet" />
+    <script src="~/scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/scripts/bootstrap.min.js"></script>
     <title>@ViewBag.Title</title>
 </head>
 <body>
     <nav class="navbar navbar-inverse" role="navigation">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">SPORTS STORE</a>
-            @Html.Action("Summary","Cart")
+            @Html.Action("UserBar", "Account")
+            @Html.Action("Summary", "Cart")
         </div>
     </nav>
-   
+    
     <div class="row panel">
         <div id="categories" class="col-xs-3">
             @{Html.RenderAction("Menu", "Nav");}
         </div>
     
         <div class="col-xs-8">
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-success">@TempData["Message"]</div>
+            }
             @RenderBody()
         </div>
     </div>

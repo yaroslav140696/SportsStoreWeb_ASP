@@ -28,7 +28,7 @@
                     {
                         @Html.Hidden("ProductID", line.Product.ProductID);
                         @Html.HiddenFor(x => x.ReturnUrl);
-                        <input class="btn btn-sm btn-info" type="submit" value="+"/>
+                        @Html.ProductQuantity(line.Quantity, line.Product)
                     }
                 </td>
                 <td class="text-left">@line.Quantity</td>

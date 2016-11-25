@@ -7,7 +7,10 @@ using System.Web;
 using System.Web.Mvc;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Concrete;
+using SportsStore.WebUI.Infrastructure.Abstrtact;
+using SportsStore.WebUI.Infrastructure.Concrete;
 using System.Configuration;
+using SportsStore.Domain.Entities;
 
 namespace SportsStore.WebUI.Infrastructure
 {
@@ -22,12 +25,15 @@ namespace SportsStore.WebUI.Infrastructure
 
         private void AddBindings()
         {
-            kernel.Bind<IProductRepository>().To<EFProductRepository>();
+            kernel.Bind(typeof(IRepository<Product>)).To<EFProductRepository>();
+            kernel.Bind(typeof(IRepository<User>)).To<EFUserRepository>();
             EmailSettings emailSettings = new EmailSettings
             {
                 WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
             };
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument("settings", emailSettings);
+            kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
+            
         }
 
         public object GetService(Type serviceType)
