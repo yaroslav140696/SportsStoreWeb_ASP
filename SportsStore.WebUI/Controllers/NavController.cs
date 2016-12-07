@@ -4,19 +4,32 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Entities;
+
 namespace SportsStore.WebUI.Controllers
 {
     public class NavController : Controller
     {
-        IProductRepository repository;
-        public NavController(IProductRepository repos)
+        IRepository<Product> repository;
+        public NavController(IRepository<Product> repos)
         {
             repository = repos;
         }
         public PartialViewResult Menu(string category = null)
         {
             ViewBag.SelectedCategory = category;
-            IEnumerable<string> categories = repository.Products.Select(x => x.Category).Distinct().OrderBy(x => x);
+            IEnumerable<string> categories = repository.Items.Select(x => x.Category).Distinct().OrderBy(x => x);
+            return PartialView(categories);
+        }
+
+        public PartialViewResult Navbar()
+        {
+            return PartialView();
+        }
+
+        public PartialViewResult Categories()
+        {
+            IEnumerable<string> categories = repository.Items.Select(x => x.Category).Distinct().OrderBy(x => x);
             return PartialView(categories);
         }
     }

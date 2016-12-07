@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -33,6 +29,11 @@ namespace SportsStore.Domain.Entities
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
+        public List<WishListLine> WishList { get; set; }
+
+        public List<CartLine> ShoppingCart { get; set; }
+
+        public List<OrderMainPart> Orders { get; set; }
     }
 
     public class CurrentUser 

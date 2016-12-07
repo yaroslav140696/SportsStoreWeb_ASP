@@ -1,14 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace SportsStore.Domain.Entities
 {
     public class ShippingDetails
     {
-        [Required(ErrorMessage = "Введите имя")]
+        [Key]
+        [HiddenInput(DisplayValue = false)]
+        public int shippingDetailsID { get; set; }
+
+        [Required(ErrorMessage = "Введите имя получателя")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage ="Введите e-mail")]
-        [Display(Name="E-mail")]
+        [Required(ErrorMessage = "Введите e-mail")]
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Введите страну")]

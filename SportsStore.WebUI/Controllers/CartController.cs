@@ -7,65 +7,62 @@ using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Models;
 using System.Threading;
+using SportsStore.Domain.Concrete;
 
 namespace SportsStore.WebUI.Controllers
 {
     public class CartController : Controller
     {
-        IProductRepository repository;
+
         IOrderProcessor orderProcessor;
-        public CartController(IProductRepository repos,IOrderProcessor proc)
+        ICartRepository repository;
+        public CartController(IOrderProcessor proc, ICartRepository repos)
         {
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("uk-UA");
             repository = repos;
             orderProcessor = proc;
         }
-        public ViewResult Index(Cart cart,string returnUrl)
+        public ViewResult Index(string returnUrl)
         {
-            return View(new CartIndexViewModel { Cart = cart, ReturnUrl = returnUrl });
+            return View(new CartIndexViewModel { Cart = repository, ReturnUrl = returnUrl });
         }
-        public RedirectToRouteResult AddToCart(Cart cart,int productID,string returnUrl)
+        public RedirectToRouteResult AddToCart(int productID, string returnUrl)
         {
-            Product product = repository.Products.FirstOrDefault(x => x.ProductID == productID);
-            if (product != null)
-            {
-                cart.AddItem(product, 1);
-            }
+
+            repository.AddItem(productID, 1);
             return RedirectToAction("Index", new { returnUrl });
         }
-        public RedirectToRouteResult RemoveFromCart(Cart cart,int productID,string returnUrl)
+
+        public RedirectToRouteResult RemoveFromCart(int productID, string returnUrl)
         {
-            Product product = repository.Products.FirstOrDefault(x => x.ProductID == productID);
-            if (product != null)
-            {
-                cart.RemoveLine(product);
-            }
-            return RedirectToAction("Index", new { returnUrl });
-        }  
-        public RedirectToRouteResult DecrementQuantity(Cart cart,int productID,string returnUrl)
-        {
-            Product product = repository.Products.FirstOrDefault(x => x.ProductID == productID);
-            if(product != null)
-            {
-                cart.DecrementQuantity(product);
-            }
+            repository.RemoveLine(productID);
+
             return RedirectToAction("Index", new { returnUrl });
         }
-        public PartialViewResult Summary(Cart cart)
+
+        public RedirectToRouteResult DecrementQuantity(int productID, string returnUrl)
         {
-            return PartialView(cart);
+
+            repository.DecrementQuantity(productID);
+
+            return RedirectToAction("Index", new { returnUrl });
+        }
+        public PartialViewResult Summary(CurrentUser user)
+        {
+            repository.SetUserId(user.Data.userID);
+            return PartialView(repository);
         }
         [HttpPost]
-        public ViewResult Checkout(Cart cart,ShippingDetails shippingDetails)
+        public ViewResult Checkout(CurrentUser user, ShippingDetails shippingDetails)
         {
-            if (cart.Lines.Count() == 0)
+            if (repository.GetUserCart().Count() == 0)
             {
                 ModelState.AddModelError("", "Ваша корзина пуста!");
             }
             if (ModelState.IsValid)
             {
-                orderProcessor.ProcessorOrder(cart, shippingDetails);
-                cart.Clear();
+                orderProcessor.ProcessorOrder(shippingDetails, user);
+                repository.Clear();
                 return View("Completed");
             }
             else

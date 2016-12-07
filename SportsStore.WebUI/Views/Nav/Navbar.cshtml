@@ -1,0 +1,8 @@
+﻿<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="@Url.Action("List","Product")">SPORTS STORE</a>
+        @Html.Action("Categories","Nav")
+        @Html.Action("UserBar", "Account")
+        @Html.Action("Summary", "Cart")
+    </div>
+</nav>

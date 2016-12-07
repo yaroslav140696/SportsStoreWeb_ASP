@@ -1,0 +1,7 @@
+﻿@model IEnumerable<string>
+
+<ul class="nav nav-tabs">
+    @{string currentName = ViewBag.SelectedTable; }
+        @Html.TableNames(currentName, Model.AsEnumerable(), x => Url.Action("Tables", "Admin", new { tableName = x }))
+</ul>
+

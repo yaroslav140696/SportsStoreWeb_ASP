@@ -20,7 +20,7 @@ namespace SportsStore.Domain.Concrete
         {
             get
             {
-                return context.Users;
+                return context.Users.Include(x=>x.ShoppingCart);
             }
         }
 
@@ -48,5 +48,6 @@ namespace SportsStore.Domain.Concrete
             }
             context.SaveChanges();
         }
+       
     }
 }

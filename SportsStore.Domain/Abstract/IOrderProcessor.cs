@@ -9,6 +9,6 @@ namespace SportsStore.Domain.Abstract
 {
     public interface IOrderProcessor
     {
-        void ProcessorOrder(Cart cart, ShippingDetails shippingdetails);
+        void ProcessorOrder(ShippingDetails shippingdetails, CurrentUser user);
     }
 }

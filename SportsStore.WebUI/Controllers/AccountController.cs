@@ -13,14 +13,16 @@ namespace SportsStore.WebUI.Controllers
     public class AccountController : Controller
     {
         IAuthProvider authProvider;
-        IUserRepository repository;
-        public AccountController(IAuthProvider ap, IUserRepository repos)
+        IRepository<User> repository;
+
+        public AccountController(IAuthProvider ap, IRepository<User> repos)
         {
             authProvider = ap;
             repository = repos;
         }
         public ViewResult Login()
         {
+            Session.Abandon();
             return View();
         }
         [HttpPost]
@@ -30,11 +32,11 @@ namespace SportsStore.WebUI.Controllers
             {
                 if (authProvider.Authenticate(model.Username, model.Password))
                 {
-                    user.Data = repository.Users.FirstOrDefault(x => x.Email == "admin@gmail.com");
+                    user.Data = repository.Items.FirstOrDefault(x => x.Email == "admin@gmail.com");
                     user.isAdmin = true;
                     return Redirect(returnUrl);
                 }
-                user.Data = repository.Users.FirstOrDefault(x => x.Email == model.Username);
+                user.Data = repository.Items.FirstOrDefault(x => x.Email == model.Username);
 
                 if (user.Data != null)
                 {
@@ -45,7 +47,6 @@ namespace SportsStore.WebUI.Controllers
                     else
                     {
                         user = null;
-                        ModelState.AddModelError("", "Неправильний логин или пароль");
                     }
                 }
             }
@@ -54,10 +55,16 @@ namespace SportsStore.WebUI.Controllers
         }
         public PartialViewResult UserBar(CurrentUser user)
         {
+            if (user.Data == null)
+            {
+                user.Data = repository.Items.FirstOrDefault(x => x.Email == "null@null");
+                user.isAdmin = false;
+            }
             return PartialView(user);
         }
         public ViewResult Registration()
         {
+            Session.Abandon();
             return View(new User());
         }
         [HttpPost]
@@ -65,17 +72,17 @@ namespace SportsStore.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var tmp = repository.Users.FirstOrDefault(x => x.Email == user.Email);
+                var tmp = repository.Items.FirstOrDefault(x => x.Email == user.Email);
                 if (tmp != null)
                 {
-                    ModelState.AddModelError("","Пользователь с таким E-mail уже зарегестрирован");
+                    ModelState.AddModelError("", "Пользователь с таким E-mail уже зарегестрирован");
                     return View(user);
                 }
                 else
                 {
-                    repository.SaveUser(user);
+                    repository.SaveItem(user);
                     TempData["Message"] = string.Format("Уважаемый {0}, вы успешно зарегестрированы", user.FirtsName);
-                    currentuser.Data = repository.Users.FirstOrDefault(x => x.Email == user.Email);
+                    currentuser.Data = repository.Items.FirstOrDefault(x => x.Email == user.Email);
                     return RedirectToAction("List", "Product");
                 }
             }
@@ -86,6 +93,7 @@ namespace SportsStore.WebUI.Controllers
         }
         public ActionResult Logout(CurrentUser user)
         {
+            Session.Abandon();
             user.Data = null;
             user.isAdmin = false;
             return RedirectToAction("List", "Product");

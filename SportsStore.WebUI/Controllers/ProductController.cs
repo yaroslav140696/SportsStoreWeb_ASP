@@ -14,7 +14,7 @@ namespace SportsStore.WebUI.Controllers
     {
         private IRepository<Product> productRepository;
         public int PageSize = 4;
-        public ProductController(IProductRepository<Product> repos)
+        public ProductController(IRepository<Product> repos)
         {
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("uk-UA");
             productRepository = repos;
@@ -39,6 +39,11 @@ namespace SportsStore.WebUI.Controllers
                 CurrentCategory = category
             };
             return View(model);
+        }
+        public ViewResult ProductView(int productID = 1)
+        {
+            Product product = productRepository.Items.FirstOrDefault(x => x.ProductID == productID);
+            return View(product);
         }
     }
 }

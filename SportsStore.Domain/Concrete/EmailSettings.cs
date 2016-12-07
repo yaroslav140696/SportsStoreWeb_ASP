@@ -25,11 +25,13 @@ namespace SportsStore.Domain.Concrete
     public class EmailOrderProcessor : IOrderProcessor
     {
         EmailSettings emailSettings;
-        public EmailOrderProcessor(EmailSettings settings)
+        ICartRepository repository;
+        public EmailOrderProcessor(EmailSettings settings,ICartRepository repos)
         {
             emailSettings = settings;
+            repository = repos;
         }
-        public void ProcessorOrder(Cart cart, ShippingDetails shippingdetails)
+        public void ProcessorOrder(ShippingDetails shippingdetails, CurrentUser user)
         {
             using (var smtpClient = new SmtpClient())
             {
@@ -48,14 +50,14 @@ namespace SportsStore.Domain.Concrete
                     .AppendLine("A new order has been submitted")
                     .AppendLine("----------------------------------------------------------")
                     .AppendLine("Items:");
-                foreach (var line in cart.Lines)
+                foreach (var line in user.Data.ShoppingCart)
                 {
                     var subtotal = line.Product.Price * line.Quantity;
                     
                     body.AppendFormat("{0} \t{1} x {2} \t\t(subtotal : {3:c})\t",line.Product.Name, line.Quantity, line.Product.Price, subtotal);
                     body.AppendLine();
                 }
-                body.AppendFormat("Total order value: {0,50:c}", cart.ComputeTotalValue())
+                body.AppendFormat("Total order value: {0,50:c}", repository.ComputeTotalValue())
                     .AppendLine("\n---------------------------------------------------------")
                     .AppendLine("Ship to:")
                     .AppendLine(shippingdetails.Name)

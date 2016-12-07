@@ -13,7 +13,6 @@ namespace SportsStore.WebUI.HtmlHelpers
         {
             StringBuilder result = new StringBuilder();
             TagBuilder tag = new TagBuilder("input");
-            tag.MergeAttribute("type", "submit");
             tag.MergeAttribute("value", value);
             tag.AddCssClass("btn");
             tag.AddCssClass("btn-sm");
@@ -23,13 +22,25 @@ namespace SportsStore.WebUI.HtmlHelpers
                 if (product.QuantityInStock <= Quantity)
                 {
                     tag.AddCssClass("disabled");
+                    tag.MergeAttribute("type", "button");
+                }
+                else
+                {
+                    tag.AddCssClass("active");
+                    tag.MergeAttribute("type", "submit");
                 }
             }
             else
             {
                 if (Quantity == 0)
                 {
+                    tag.MergeAttribute("type", "button");
                     tag.AddCssClass("disabled");
+                }
+                else
+                {
+                    tag.AddCssClass("active");
+                    tag.MergeAttribute("type", "submit");
                 }
             }
             result.Append(tag.ToString());

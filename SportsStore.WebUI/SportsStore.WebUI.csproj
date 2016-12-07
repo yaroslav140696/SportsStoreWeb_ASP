@@ -187,7 +187,6 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Binders\CartModelBinder.cs" />
     <Compile Include="Binders\UserModelBinder.cs" />
     <Compile Include="Controllers\Abstract\IAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -200,6 +199,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\TableHelper.cs" />
     <Compile Include="HtmlHelpers\PagingHelper.cs" />
     <Compile Include="HtmlHelpers\ProductQuantityHelper.cs" />
     <Compile Include="Infrastructure\Abstrtact\IAuthProvider.cs" />
@@ -228,10 +228,19 @@
     <Content Include="Views\Cart\Completed.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\EditProduct.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\UserBar.cshtml" />
     <Content Include="Views\Account\Registration.cshtml" />
+    <Content Include="Views\AdminProduct\Index.cshtml" />
+    <Content Include="Views\AdminUser\Index.cshtml" />
+    <Content Include="Views\AdminUser\Edit.cshtml" />
+    <Content Include="Views\Shared\_ProductLayout.cshtml" />
+    <Content Include="Views\Product\ProductView.cshtml" />
+    <Content Include="Views\Nav\Navbar.cshtml" />
+    <Content Include="Views\Nav\Categories.cshtml" />
+    <Content Include="Views\Admin\TablesName.cshtml" />
+    <Content Include="Views\AdminProduct\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -241,8 +250,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\AdminProduct\" />
-    <Folder Include="Views\AdminUser\" />
+    <Folder Include="Content\Pictures\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SportsStore.Domain\SportsStore.Domain.csproj">

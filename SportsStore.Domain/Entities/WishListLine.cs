@@ -6,20 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-
 namespace SportsStore.Domain.Entities
 {
-    public class Media
+    public class WishListLine
     {
         [Key]
         [HiddenInput(DisplayValue = false)]
-        public int mediaID { get; set; }
-        
-        public byte[] ImageData { get; set; }
+        public int WishlistlineID { get; private set; }
 
-        public string ImageMimeType { get; set; }
+        [Required]
+        public User User { get; set; }
 
-        public virtual Product Product { get; set; }
-    
+        [Required]
+        public Product Product { get; set; }
     }
 }

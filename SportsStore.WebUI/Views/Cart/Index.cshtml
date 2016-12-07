@@ -20,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var line in Model.Cart.Lines)
+        @foreach (var line in Model.Cart.GetUserCart())
         {
             <tr>
                 <td class="text-left">
@@ -28,7 +28,7 @@
                     {
                         @Html.Hidden("ProductID", line.Product.ProductID);
                         @Html.HiddenFor(x => x.ReturnUrl);
-                        @Html.ProductQuantity(line.Quantity, line.Product)
+                        @Html.ProductQuantity("+",line.Quantity, line.Product)
                     }
                 </td>
                 <td class="text-left">@line.Quantity</td>
@@ -37,10 +37,15 @@
                     {
                         @Html.Hidden("ProductID", line.Product.ProductID);
                         @Html.HiddenFor(x => x.ReturnUrl);
-                        <input class="btn btn-sm btn-info" type="submit" value="-" />
+                        @Html.ProductQuantity("-", line.Quantity, line.Product)
                     }
                 </td>
-                <td class="text-center">@line.Product.Name</td>
+                <td class="text-center">@Html.RouteLink(line.Product.Name, new {
+                                       controller = "Product",
+                                       action = "ProductView",
+                                       productID = line.Product.ProductID},
+                                       new { @class = "btn btn-link" })
+                </td>
                 <td class="text-right">@line.Product.Price.ToString("c")</td>
                 <td class="text-right">@((line.Product.Price * line.Quantity).ToString("c"))</td>
                 <td>

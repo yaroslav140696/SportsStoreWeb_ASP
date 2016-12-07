@@ -1,38 +1,50 @@
 ﻿using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Controllers.Abstract;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using SportsStore.Domain.Abstract;
 
 namespace SportsStore.WebUI.Controllers
 {
-    public class AdminProductController : Controller, IAdminController<Product>
+    public class AdminProductController : IAdminController<Product>
     {
-        public ViewResult Create()
+        public AdminProductController(IRepository<Product> repos) : base(repos) { }
+        
+        public override ActionResult DeleteItem(int itemID)
         {
-            throw new NotImplementedException();
+            var deletedProduct = repository.DeleteItem(itemID);
+            if (deletedProduct != null)
+            {
+                TempData["Message"] = string.Format("{0} был удален", deletedProduct.Name);
+            }
+            return RedirectToAction("Index","Admin");
         }
 
-        public ActionResult Delete()
+        [HttpPost]
+        public override ActionResult Edit(Product item)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                repository.SaveItem(item);
+                TempData["Message"] = string.Format("{0} был изменен", item.Name);
+                return RedirectToAction("Tables","Admin");
+            }
+            else
+            {
+                return PartialView(item);
+            }
         }
 
-        public ActionResult Edit(Product item)
+        [HttpGet]
+        public override ActionResult Edit(int itemID = 0)
         {
-            throw new NotImplementedException();
-        }
-
-        public ViewResult Edit(int T_id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ActionResult Index()
-        {
-            return View();
+            if (itemID == 0)
+            {
+                return CreateItem();
+            }
+            var product = repository.Items.FirstOrDefault(x => x.ProductID == itemID);
+            //return Json(new { product = product }, JsonRequestBehavior.AllowGet);
+            return PartialView(product);
         }
     }
 }

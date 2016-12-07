@@ -1,4 +1,5 @@
-﻿using SportsStore.Domain.Entities;
+﻿using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace SportsStore.WebUI.Models
 {
     public class CartIndexViewModel
     {
-        public Cart Cart { get; set; }
+        public ICartRepository Cart { get; set; }
         public string ReturnUrl { get; set; }
     }
 }

@@ -10,52 +10,36 @@ using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Controllers
 {
-    [Authorize]
-    public abstract class AdminController : Controller, IAdminController<T>
+    
+    public class AdminController : Controller
     {
-        protected IProductRepository repository;
-        public AdminController(IProductRepository repos)
+        static string TableName;
+        public AdminController()
         {
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("uk-UA");
-            repository = repos;
         }
-        public ActionResult Index()
+        public PartialViewResult TablesName()
         {
-            return View(repository.Products);
-        }
-        public ViewResult EditProduct(int productID)
-        {
-            var product = repository.Products.FirstOrDefault(x => x.ProductID == productID);
-            return View(product);
-        }
-        [HttpPost]
-        public ActionResult EditProduct(Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                repository.SaveProduct(product);
-                TempData["Message"] = string.Format("{0} был изменен", product.Name);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View(product);
-            }
-        }
-        public ViewResult CreateProduct()
-        {
-            return View("Edit", new Product());
+            ViewBag.SelectedTable = TableName ?? "Товары";
+            List<string> tables = new List<string>() { "Товары", "Пользователи", "Заказы", "Списки желаемого", "Корзины пользователя" };
+            return PartialView(tables);
         }
 
-        [HttpPost]
-        public ActionResult DeleteProduct(int productID)
+        public RedirectToRouteResult Tables(string tableName = "Товары")
         {
-            Product deletedProduct = repository.DeleteProduct(productID);
-            if (deletedProduct != null)
+            TableName = tableName;
+            string controllerName = null;
+            switch (tableName)
             {
-                TempData["Message"] = string.Format("{0} был удален", deletedProduct.Name);
+                case "Товары":
+                    controllerName = "AdminProduct";
+                    break;
+                case "Пользователи":
+                    controllerName = "AdminUser";
+                    break;
+                default: break;
             }
-            return RedirectToAction("Index");
-        }
+            return RedirectToAction("Index", controllerName);
+        } 
     }
 }
