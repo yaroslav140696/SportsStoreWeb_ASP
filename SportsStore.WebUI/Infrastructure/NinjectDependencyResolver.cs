@@ -28,11 +28,14 @@ namespace SportsStore.WebUI.Infrastructure
             kernel.Bind(typeof(IRepository<Product>)).To<EFProductRepository>();
             kernel.Bind(typeof(IRepository<User>)).To<EFUserRepository>();
             kernel.Bind<ICartRepository>().To<EFShoppingCartRepository>();
+            kernel.Bind<IOrderRepository>().To<EFOrderRepository>();
+            kernel.Bind<IWishListRepository>().To<EFWishListRepository>();
+
             EmailSettings emailSettings = new EmailSettings
             {
                 WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
             };
-            kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument("settings", emailSettings);
+           
             kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
             
         }

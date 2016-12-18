@@ -20,7 +20,7 @@ namespace SportsStore.WebUI.HtmlHelpers
                 {
                     li.AddCssClass("active");
                 }
-                a.MergeAttribute("data-toggle", "tab");
+                //a.MergeAttribute("data-toggle", "tab");
                 a.MergeAttribute("href", pageUrl(str));
                 a.InnerHtml = str;
                 li.InnerHtml = a.ToString();

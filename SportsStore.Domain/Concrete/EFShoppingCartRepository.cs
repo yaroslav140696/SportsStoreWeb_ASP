@@ -61,14 +61,14 @@ namespace SportsStore.Domain.Concrete
                 CartLine cartline = user.ShoppingCart.Where(x => x.Product.ProductID == productID).FirstOrDefault();
                 if (cartline.Quantity > 1)
                 {
-                    cartline.Quantity--;
+                    try
+                    {
+                        cartline.Quantity--;
+                        product.QuantityInStock++;
+                        context.SaveChanges();
+                    }
+                    catch (Exception) { }
                 }
-                try
-                {
-                    product.QuantityInStock += 1;
-                    context.SaveChanges();
-                }
-                catch (Exception) { }
             }
         }
 

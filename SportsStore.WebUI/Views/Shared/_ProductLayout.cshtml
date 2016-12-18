@@ -12,7 +12,9 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    @{ Html.RenderAction("Navbar", "Nav"); }
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
     <div>
         @RenderBody()
     </div>

@@ -173,6 +173,7 @@
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\CartScript.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
@@ -181,12 +182,17 @@
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="scripts\OrderScript.js" />
+    <Content Include="scripts\ProductScript.js" />
+    <Content Include="scripts\WishListScript.js" />
+    <Content Include="scripts\_reference.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Product\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Binders\OrderModelBinder.cs" />
     <Compile Include="Binders\UserModelBinder.cs" />
     <Compile Include="Controllers\Abstract\IAdminController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -195,7 +201,9 @@
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\NavController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\WishListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -241,6 +249,11 @@
     <Content Include="Views\Nav\Categories.cshtml" />
     <Content Include="Views\Admin\TablesName.cshtml" />
     <Content Include="Views\AdminProduct\Edit.cshtml" />
+    <Content Include="Views\Order\UserOrders.cshtml" />
+    <Content Include="Views\Order\DetailInfoAboutOrder.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Orders.cshtml" />
+    <Content Include="Views\WishList\GetItems.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

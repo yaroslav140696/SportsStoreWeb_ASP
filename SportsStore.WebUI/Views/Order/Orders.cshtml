@@ -1,0 +1,41 @@
+﻿@model IQueryable<SportsStore.Domain.Entities.OrderMainPart>
+
+<script src="~/scripts/OrderScript.js"></script>
+
+<div class="panel col-md-5">
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h5 class="text-center">Все заказы</h5>
+        </div>
+
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>№ заказа</th>
+                        <th class="text-center">Дата заказа</th>
+                        <th class="text-center">Статус</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var line in Model)
+                    {
+                        <tr>
+                            <td>@line.orderMainPartID</td>
+                            <td class="text-center">@line.OrderTime</td>
+                            <td class="text-center">Доставлен</td>
+                            <td><button value="@line.orderMainPartID" class="orderDetails btn btn-info btn-xs">Подробнее</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer text-center">
+            @Html.RouteLink("На главную", new { controller = "Product", action = "List" }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>
+
+<div id="orderExtension" class="panel col-md-7"></div>

@@ -5,10 +5,11 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-   
-    <div class="pane">
+
+<div class="panel  col-md-5">
+    <div class="panel panel-primary">
         <div class="panel-heading">
-            <h2>Все Пользователи</h2>
+            <h5>Все Пользователи</h5>
         </div>
         <div class="panel-body">
             <table class="table table-striped table-condensed table-bordered">
@@ -17,22 +18,24 @@
                     <th>Имя</th>
                     <th class="text-right">Фамилия</th>
                     <th class="text-center">E-mail</th>
-                    <th class="text-center">Действие</th>
+                    <th class="text-center">Заказы</th>
+                    <th class="text-center"></th>
                 </tr>
 
                 @foreach (var item in Model)
-                {
+            {
                     <tr>
                         <td class="text-right">
                             @item.userID
                         </td>
                         <td>
-                           @item.FirtsName
+                            @item.FirtsName
                         </td>
                         <td class="text-right">
                             @item.SecondName
                         </td>
                         <td class="text-center">@item.Email</td>
+                        <td class="text-center">@Html.RouteLink("Заказы", new { controller = "Order", action = "Index", userID = item.userID }, new { @class = "btn btn-info btn-xs" })</td>
                         <td class="text-center">
                             @using (Html.BeginForm("Delete", "AdminProduct"))
                             {
@@ -45,4 +48,5 @@
             </table>
         </div>
     </div>
+</div>
 

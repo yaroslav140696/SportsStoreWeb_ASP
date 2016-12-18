@@ -1,0 +1,8 @@
+﻿@model IQueryable<SportsStore.Domain.Entities.OrderMainPart>
+
+@{
+    ViewBag.Title = "UserOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("Orders",Model)

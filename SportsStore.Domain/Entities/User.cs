@@ -8,7 +8,7 @@ namespace SportsStore.Domain.Entities
     public class User
     {
         [HiddenInput(DisplayValue = false)]
-        public int userID { get; private set; }
+        public int userID { get; set; }
 
         [Required(ErrorMessage = "Введите имя")]
         [Display(Name = "Имя")]

@@ -1,41 +1,33 @@
-﻿@model SportsStore.Domain.Entities.Product
+﻿@model SportsStore.Domain.Entities.User
 
 @{
-    ViewBag.Title = "Admin: Edit " + Model.Name;
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "Admin: Edit User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="panel">
+<div class="panel col-md-7 col-md-offset-3">
     <div class="panel-heading">
-        <h1>Редактировать @Model.Name</h1>
+        <h1>Редактировать @Model.FirtsName @Model.SecondName</h1>
     </div>
-    @using (Html.BeginForm("EditProduct","Admin"))
+    @using (Html.BeginForm("Edit", "AdminUser"))
     {
         <div class="panel-body">
-            @Html.HiddenFor(x => x.ProductID)
+            @Html.HiddenFor(x => x.userID)
+            @Html.HiddenFor(x => x.Email)
             @foreach (var property in ViewData.ModelMetadata.Properties)
             {
-                if (property.PropertyName != "ProductID")
+                if (property.PropertyName != "userID" && property.PropertyName != "Email" && property.PropertyName != "WishList" && property.PropertyName != "ShoppingCart" && property.PropertyName != "Orders")
                 {
                     <div class="form-group">
                         <label>@(property.DisplayName ?? property.PropertyName)</label>
-                        @if (property.PropertyName == "Description")
-                        {
-                            @Html.TextArea(property.PropertyName, null, new { @class = "form-control", rows = 5 })
-                        }
-                        else
-                        {
-                            @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
-                        }
+                        @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
                         @Html.ValidationMessage(property.PropertyName)
                     </div>
                 }
             }
         </div>
         <div class="panel-footer">
-            <input value="Сохранить" type="submit" class="btn btn-primary"/>
-            @Html.ActionLink("Отмена", "Index",null, new { @class = "btn btn-default" })
+            <input value="Сохранить" type="submit" class="btn btn-primary" />
+            @Html.ActionLink("Отмена", "Index", null, new { @class = "btn btn-default" })
         </div>
     }
 </div>
-
-

@@ -1,10 +1,11 @@
-﻿using SportsStore.Domain.Entities;
+﻿using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Entities;
 using System.Data.Entity;
 using System.Linq;
 
 namespace SportsStore.Domain.Concrete
 {
-    public class EFWishListRepository
+    public class EFWishListRepository : IWishListRepository
     {
         EFDbContext context = new EFDbContext();
         public EFWishListRepository()
@@ -21,7 +22,7 @@ namespace SportsStore.Domain.Concrete
 
         public WishListLine DeleteItem(int itemID)
         {
-            var item = context.WishListLines.Include("User").FirstOrDefault(x=>x.WishlistlineID == itemID);
+            var item = context.WishListLines.Include("User").FirstOrDefault(x => x.WishlistlineID == itemID);
             if (item != null)
             {
                 var user = item.User;
@@ -32,17 +33,22 @@ namespace SportsStore.Domain.Concrete
             return item;
         }
 
-        public void SaveItem(WishListLine item)
+        public void SaveItem(WishListLine item, int itemID)
         {
-                var user = item.User;
-                user.WishList.Add(item);
-                context.WishListLines.Add(item);
-                context.SaveChanges();
+            var product = context.Products.Find(itemID);
+            item.Product = product;
+            var user = item.User;
+            user.WishList.Add(item);
+            context.WishListLines.Add(item);
+            context.SaveChanges();
         }
 
         public IQueryable<WishListLine> UserWishList(int userID)
         {
-            var user = context.Users.Include(x=>x.WishList).FirstOrDefault(x=>x.userID == userID);
+            var user = context.Users
+                .Include(x => x.WishList)
+                .Include(x=>x.WishList.Select(p=>p.Product))
+                .FirstOrDefault(x => x.userID == userID);
             return user.WishList.AsQueryable();
         }
     }

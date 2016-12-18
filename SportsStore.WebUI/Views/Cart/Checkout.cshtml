@@ -3,38 +3,40 @@
 @{
     ViewBag.Title = "Checkout";
 }
+<div class="col-md-8 col-md-offset-3">
+    <h2>Оформление заказа</h2>
+    @Html.ValidationSummary()
+    <p>Введите контактные данные и мы вышлем ваш заказ в ближайшее время!</p>
 
-<h2>Оформление заказа</h2>
-@Html.ValidationSummary()
-<p>Введите контактные данные и мы вышлем ваш заказ в ближайшее время!</p>
-
-@using (Html.BeginForm())
-{
-    <h3>Получатель</h3>
-    <div class="form-group">
-        <label>Имя:</label>
-        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
-    </div>
-    <div class="form-group">
-        <label>E-mail:</label>
-        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
-    </div>
-    <h3>Адрес</h3>
-    foreach(var property in ViewData.ModelMetadata.Properties)
+    @using (Html.BeginForm())
     {
-        if(property.PropertyName != "Name" && property.PropertyName != "GiftWrap" && property.PropertyName != "Email")
+        <h3>Получатель</h3>
+        <div class="form-group">
+            <label>Имя:</label>
+            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>E-mail:</label>
+            @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+        </div>
+        <h3>Адрес</h3>
+        foreach (var property in ViewData.ModelMetadata.Properties)
         {
-            <div class="form-group">
-                <label>@(property.DisplayName ?? property.PropertyName)</label>
-                @Html.TextBox(property.PropertyName,null,new {@class = "form-control"})
-            </div>
+            if (property.PropertyName != "Name" && property.PropertyName != "GiftWrap" && property.PropertyName != "Email" && property.PropertyName != "shippingDetailsID")
+            {
+                <div class="form-group">
+                    <label>@(property.DisplayName ?? property.PropertyName)</label>
+                    @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+                </div>
+            }
         }
+        <h3>Дополнительно</h3>
+        <div class="checkbox">
+            <label>@Html.EditorFor(x => x.GiftWrap) Упаковать в подарочную коробку</label>
+        </div>
+        <div class="text-center">
+            <input class="btn btn-primary" type="submit" value="Составить заказ" />
+        </div>
+
     }
-    <h3>Дополнительно</h3>
-    <div class="checkbox">
-        <label>@Html.EditorFor(x => x.GiftWrap) Упаковать в подарочную коробку</label>
-    </div>
-    <div class="text-center">
-        <input class="btn btn-primary" type="submit" value="Составить заказ" />
-    </div>
-}
+</div>

@@ -12,8 +12,10 @@ namespace SportsStore.WebUI.HtmlHelpers
         public static MvcHtmlString ProductQuantity(this HtmlHelper html, string value, int Quantity, Product product)
         {
             StringBuilder result = new StringBuilder();
-            TagBuilder tag = new TagBuilder("input");
-            tag.MergeAttribute("value", value);
+            TagBuilder tag = new TagBuilder("button");
+            tag.MergeAttribute("value", product.ProductID.ToString());
+            tag.InnerHtml = value;
+            tag.MergeAttribute("type", "button");
             tag.AddCssClass("btn");
             tag.AddCssClass("btn-sm");
             tag.AddCssClass("btn-info");
@@ -22,25 +24,21 @@ namespace SportsStore.WebUI.HtmlHelpers
                 if (product.QuantityInStock <= Quantity)
                 {
                     tag.AddCssClass("disabled");
-                    tag.MergeAttribute("type", "button");
                 }
                 else
                 {
                     tag.AddCssClass("active");
-                    tag.MergeAttribute("type", "submit");
                 }
             }
             else
             {
                 if (Quantity == 0)
                 {
-                    tag.MergeAttribute("type", "button");
                     tag.AddCssClass("disabled");
                 }
                 else
                 {
                     tag.AddCssClass("active");
-                    tag.MergeAttribute("type", "submit");
                 }
             }
             result.Append(tag.ToString());

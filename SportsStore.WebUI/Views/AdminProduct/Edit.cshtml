@@ -1,14 +1,15 @@
 ﻿@model SportsStore.Domain.Entities.Product
 
-
-    <div class="panel">
+<div class="panel">
+    <div class="panel panel-success">
         <div class="panel-heading">
-            <h2>@Model.Name</h2>
+            <h5>@Model.Name</h5>
         </div>
         @using (Html.BeginForm("Edit", "AdminProduct"))
-    {
+        {
             <div class="panel-body">
                 @Html.HiddenFor(x => x.ProductID)
+                
                 @foreach (var property in ViewData.ModelMetadata.Properties)
                 {
                     if (property.PropertyName != "ProductID")
@@ -34,4 +35,4 @@
             </div>
         }
     </div>
-
+</div>

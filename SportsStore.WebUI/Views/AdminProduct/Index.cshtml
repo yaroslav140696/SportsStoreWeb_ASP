@@ -5,47 +5,52 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="panel">
-    <div class="panel-heading">
-        <h2>Все товары</h2>
-    </div>
+<div class="col-md-7 panel">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Все товары</h5>
+        </div>
 
-    <div class="panel-body">
-        <table class="table table-striped table-condensed table-bordered">
-            <tr>
-                <th class="text-right">ID</th>
-                <th>Имя</th>
-                <th class="text-right">Цена</th>
-                <th>На складе</th>
-                <th class="text-center">Действие</th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        <div class="panel-body">
+            <table class="table table-striped table-condensed table-bordered">
                 <tr>
-                    <td class="text-right">
-                        @item.ProductID
-                    </td>
-                    <td>
-                        <button value="@item.ProductID" type="button" class="buttonEdit btn btn-link">@item.Name</button>
-                    </td>
-                    <td class="text-right">
-                        @item.Price.ToString("c")
-                    </td>
-                    <td class="text-center">@item.QuantityInStock</td>
-                    <td class="text-center">
-                        @using (Html.BeginForm("Delete", "AdminProduct"))
-                        {
-                            @Html.Hidden("productID", item.ProductID)
-                            <input type="submit" value="Удалить" class="btn btn-xs btn-default" />
-                        }
-                    </td>
+                    <th class="text-right">ID</th>
+                    <th>Имя</th>
+                    <th class="text-right">Цена</th>
+                    <th>На складе</th>
+                    <th class="text-center">Действие</th>
                 </tr>
-            }
-        </table>
-    </div>
-    <div class="panel-footer text-center">
-        <button value="0" type="button" class="btn btn-link buttonEdit">Добавить новый товар</button>
+
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td class="text-right">
+                            @item.ProductID
+                        </td>
+                        <td>
+                            <button value="@item.ProductID" type="button" class="buttonEdit btn btn-link">@item.Name</button>
+                        </td>
+                        <td class="text-right">
+                            @item.Price.ToString("c")
+                        </td>
+                        <td class="text-center">@item.QuantityInStock</td>
+                        <td class="text-center">
+                            @using (Html.BeginForm("DeleteItem", "AdminProduct"))
+                            {
+                                @Html.Hidden("itemID", item.ProductID)
+                                <input type="submit"
+                                       class="btn btn-default btn-xs"
+                                       value="Снять с продаж" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="panel-footer text-center">
+            <button value="0" type="button" class="btn btn-link buttonEdit">Добавить новый товар</button>
+        </div>
     </div>
 </div>
-
+<div class="myEdit col-md-5">
+</div>

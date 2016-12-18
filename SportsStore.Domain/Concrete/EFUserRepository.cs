@@ -40,7 +40,6 @@ namespace SportsStore.Domain.Concrete
                 var dbEntry = context.Users.Find(user.userID);
                 if (dbEntry != null)
                 {
-                    dbEntry.Email = user.Email;
                     dbEntry.FirtsName = user.FirtsName;
                     dbEntry.SecondName = user.SecondName;
                     dbEntry.Password = user.Password;

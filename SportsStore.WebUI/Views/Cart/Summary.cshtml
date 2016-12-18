@@ -4,7 +4,7 @@
     <li>
         <a href="@Url.Action("Index", "Cart")">
         <span class="glyphicon  glyphicon-shopping-cart"></span>
-         Корзина<span class="badge">@Model.GetUserCart().Sum(x=>x.Quantity)</span></a>
+         Корзина<span id="totalQuantity" class="badge">@Model.GetUserCart().Sum(x=>x.Quantity)</span></a>
     </li>
 </ul>
 

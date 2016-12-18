@@ -21,11 +21,11 @@ namespace SportsStore.WebUI.Controllers
         public PartialViewResult TablesName()
         {
             ViewBag.SelectedTable = TableName ?? "Товары";
-            List<string> tables = new List<string>() { "Товары", "Пользователи", "Заказы", "Списки желаемого", "Корзины пользователя" };
+            List<string> tables = new List<string>() { "Товары", "Пользователи", "Заказы"};
             return PartialView(tables);
         }
 
-        public RedirectToRouteResult Tables(string tableName = "Товары")
+        public ActionResult Tables(string tableName = "Товары")
         {
             TableName = tableName;
             string controllerName = null;
@@ -36,6 +36,9 @@ namespace SportsStore.WebUI.Controllers
                     break;
                 case "Пользователи":
                     controllerName = "AdminUser";
+                    break;
+                case "Заказы":
+                    controllerName = "Order";
                     break;
                 default: break;
             }

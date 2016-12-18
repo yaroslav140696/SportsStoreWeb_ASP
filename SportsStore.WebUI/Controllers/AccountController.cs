@@ -34,7 +34,9 @@ namespace SportsStore.WebUI.Controllers
                 {
                     user.Data = repository.Items.FirstOrDefault(x => x.Email == "admin@gmail.com");
                     user.isAdmin = true;
+                    if(returnUrl!=null)
                     return Redirect(returnUrl);
+                    return RedirectToAction("List", "Product");
                 }
                 user.Data = repository.Items.FirstOrDefault(x => x.Email == model.Username);
 

@@ -4,7 +4,7 @@
     @if (Model.Data.Email == "null@null")
     {
         <li>
-            <a href="@Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery })">Войти <span class = "glyphicon glyphicon-log-in"></span></a>
+            <a href="@Url.Action("Login", "Account", new { returnUrl = Request.Url.PathAndQuery })">Войти <span class="glyphicon glyphicon-log-in"></span></a>
         </li>
     }
     else
@@ -23,13 +23,18 @@
                     </li>
                     <li class="divider"></li>
                 }
-                <li>@Html.RouteLink("Редактировать профиль", 
+                <li>
+                    @Html.RouteLink("Редактировать профиль",
                    new { controller = "AdminUser", action = "Edit", itemID = Model.Data.userID })
-                </li>
-                <li>@Html.ActionLink("Мои заказы", "qwer", "qwer")</li>
-                <li>@Html.ActionLink("Мои желания", "qwer", "qwer")</li>
-            </ul>
-        </li>
+            </li>
+            <li>@Html.ActionLink("Мои заказы", "UserOrders", "Order")</li>
+            <li>
+                @Html.HiddenFor(x=>x.Data.userID)
+                <a data-toggle="modal" href="#" id="callWishList" >Список желаемого</a>
+                
+            </li>
+        </ul>
+    </li>
         <li>
             <a href="@Url.Action("Logout", "Account", new { returnUrl = Request.Url.PathAndQuery })">Выйти <span class="glyphicon glyphicon-log-out"></span></a>
         </li>

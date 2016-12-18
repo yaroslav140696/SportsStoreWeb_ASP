@@ -17,7 +17,7 @@ namespace SportsStore.WebUI.Controllers
             {
                 TempData["Message"] = string.Format("{0} был удален", deletedProduct.Name);
             }
-            return RedirectToAction("Index","Admin");
+            return RedirectToAction("Tables","Admin");
         }
 
         [HttpPost]

@@ -9,6 +9,9 @@
     <link href="~/Content/ErrorStyle.css" rel="stylesheet" />
     <script src="~/scripts/jquery-1.10.2.min.js"></script>
     <script src="~/scripts/bootstrap.min.js"></script>
+    <script src="~/scripts/CartScript.js"></script>
+    <script src="~/scripts/ProductScript.js"></script>
+    <script src="~/scripts/WishListScript.js"></script>
     <title>@ViewBag.Title</title>
 </head>
 <body>
@@ -19,13 +22,14 @@
             @{ Html.RenderAction("Menu", "Nav"); }
         </div>*@
 
-        <div class="col-xs-8 col-xs-offset-3">
+        <div>
             @if (TempData["Message"] != null)
             {
                 <div class="alert alert-success">@TempData["Message"]</div>
             }
             @RenderBody()
         </div>
+        <div id="wishListContainer"></div>
     </div>
 </body>
 </html>

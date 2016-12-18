@@ -14,6 +14,7 @@ namespace SportsStore.WebUI
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ModelBinders.Binders.Add(typeof(CurrentUser), new UserModelBinder());
+            ModelBinders.Binders.Add(typeof(OrderMainPart), new OrderModelBinder());
         }
         
         public void Session_End()

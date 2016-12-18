@@ -78,8 +78,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\ICartRepository.cs" />
-    <Compile Include="Abstract\IOrderProcessor.cs" />
+    <Compile Include="Abstract\IOrderRepository.cs" />
     <Compile Include="Abstract\IRepository.cs" />
+    <Compile Include="Abstract\IWishListRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFOrderRepository.cs" />
     <Compile Include="Concrete\EFProductRepository.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Entities\OrderMainPart.cs" />
     <Compile Include="Entities\OrderExtension.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\EmailOrderProcessor.cs" />
     <Compile Include="Entities\ShippingDetails.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\WishListLine.cs" />
@@ -100,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

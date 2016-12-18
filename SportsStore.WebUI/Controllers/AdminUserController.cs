@@ -12,6 +12,7 @@ namespace SportsStore.WebUI.Controllers
     public class AdminUserController : IAdminController<User>
     {
         public AdminUserController(IRepository<User> repos) : base(repos) { }
+
         [Authorize]
         public override ActionResult DeleteItem(int itemID)
         {
@@ -30,11 +31,14 @@ namespace SportsStore.WebUI.Controllers
             {
                 repository.SaveItem(item);
                 TempData["Message"] = string.Format("{0} {1} был изменен", item.FirtsName, item.SecondName);
-                return RedirectToAction("Tables", "Admin");
+                CurrentUser user = (CurrentUser)Session["CurrentUser"];
+                user.Data = repository.Items.FirstOrDefault(x => x.userID == item.userID);
+                Session["CurrentUser"] = user;
+                return RedirectToAction("List", "Product");
             }
             else return View(item);
         }
-        
+
         public override ActionResult Edit(int itemID)
         {
             var user = repository.Items.FirstOrDefault(x => x.userID == itemID);

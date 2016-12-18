@@ -1,0 +1,74 @@
+﻿@model SportsStore.Domain.Entities.OrderMainPart
+
+<div class="panel panel-info">
+    <div class="panel-heading text-center">
+        <h5>Заказ №@Model.orderMainPartID</h5>
+    </div>
+    <div class="panel-body">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-info">
+                Пользователь:
+                <ul>
+                    <li>Имя: @Model.User.FirtsName  </li>
+                    <li>Фамилия: @Model.User.SecondName</li>
+                    <li>Email: @Model.User.Email</li>
+                </ul>
+            </li>
+            <li class="list-group-item list-group-item-info">
+                Контактные данные:
+                <ul>
+                    <li>Контактное лицо: @Model.ShippingDetails.Name</li>
+                    <li>Email: @Model.ShippingDetails.Email</li>
+                </ul> 
+            </li>
+            <li class="list-group-item list-group-item-info">
+                Адресные данные:
+                <ul>
+                    <li>Страна: @Model.ShippingDetails.Country</li>
+                    <li>Город: @Model.ShippingDetails.City</li>
+                    @if (Model.ShippingDetails.Line2 != null)
+                    {
+                    <li>Район: Model.ShippingDetails.Line2</li>
+                    }
+                    <li>Улица, Дом/кв: @Model.ShippingDetails.Line1</li>
+                    <li>Почтовый индекс: @Model.ShippingDetails.Zip</li>
+                    @if (Model.ShippingDetails.Line3 != null)
+                    {
+                    <li>Дополнительная информация: @Model.ShippingDetails.Line3</li>
+                    }
+                </ul>
+            </li>
+            <li class="list-group-item list-group-item-info">Описание заказа:</li>
+        </ul>
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>Продукт</th>
+                    <th>Цена за шт.</th>
+                    <th>Количество</th>
+                    <th>Всего</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var line in Model.OrderExtension)
+                {
+                    <tr>
+                        <td>@Html.RouteLink(@line.Product.Name,
+                           new { controller = "Product", action = "ProductView", productID = line.Product.ProductID},
+                           new { @class = "btn btn-link" }) 
+                        </td>
+                        <td>@string.Format("{0:c}",line.Product.Price)</td>
+                        <td>@line.Quantity</td>
+                        <td>@string.Format("{0:c}",line.Product.Price * line.Quantity)</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="text-right" colspan="4">Общая сума: @Model.OrderExtension.Sum(x=>x.Quantity*x.Product.Price)</td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+</div>

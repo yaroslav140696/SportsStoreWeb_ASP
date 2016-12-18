@@ -9,13 +9,21 @@
             @Model.Price.ToString("c")
         </span>
     </h3>
-    @using (Html.BeginForm("AddToCart", "Cart"))
-    {
-        <div class="pull-right">
-            @Html.HiddenFor(x => x.ProductID)
-            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-            <button type="submit" class="btn btn-success"> Добавить в корзину <span class="glyphicon glyphicon-shopping-cart"></span></button>
-        </div>
-    }
+    <div>
+        <h3 class="prodQ">
+            <span></span>
+            <span class="productQuantity label label-warning">
+                @Model.QuantityInStock
+            </span>
+        </h3>
+        @using (Html.BeginForm("AddToCart", "Cart"))
+        {
+            <div class="pull-right addToCart">
+                @Html.HiddenFor(x => x.ProductID)
+                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                <button type="submit" class="addToCart btn btn-success"> Добавить в корзину <span class="glyphicon glyphicon-shopping-cart"></span></button>
+            </div>
+        }
+    </div>
     <span class="lead"> @Model.Description</span>
 </div>
