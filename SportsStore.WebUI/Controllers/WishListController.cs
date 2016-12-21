@@ -3,6 +3,7 @@ using SportsStore.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,6 +15,7 @@ namespace SportsStore.WebUI.Controllers
         public WishListController(IWishListRepository repos)
         {
             repository = repos;
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("uk-UA");
         }
         // GET: WishList
         public ActionResult Index()
@@ -23,8 +25,8 @@ namespace SportsStore.WebUI.Controllers
 
         public void AddItem(CurrentUser user, int productID)
         {
-            WishListLine line = new WishListLine { User = user.Data };
-            repository.SaveItem(line, productID);
+            repository.SaveItem(user.Data.userID, productID);
+            TempData["Messege"] = "Продукт добавлен в список желаемых товаров";
         }
         
         public PartialViewResult GetItems(CurrentUser user)
@@ -36,6 +38,7 @@ namespace SportsStore.WebUI.Controllers
         public void DeleteItem(int itemID)
         {
             repository.DeleteItem(itemID);
+            TempData["Messege"] = "Продукт удален из списка желаемых товаров";
         }
 
     }

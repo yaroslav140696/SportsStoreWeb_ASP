@@ -2,6 +2,7 @@
 using SportsStore.Domain.Concrete;
 using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Binders;
+using SportsStore.WebUI.Models;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -14,7 +15,7 @@ namespace SportsStore.WebUI
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             ModelBinders.Binders.Add(typeof(CurrentUser), new UserModelBinder());
-            ModelBinders.Binders.Add(typeof(OrderMainPart), new OrderModelBinder());
+            ModelBinders.Binders.Add(typeof(LastSeen), new LastSeenModelBinder());
         }
         
         public void Session_End()

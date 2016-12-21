@@ -1,23 +1,21 @@
 ﻿$(document).ready(function () {
-    $("#callWishList").click(function () {
-        var current = $(this);
-        var id = parseInt(current.prev().val());
+   
+    $('.removeWishListCart').click(function () {
+        var id = $(this).val();
+        var rem = $(this).parent().parent();
         $.ajax({
-            url: 'http://localhost:18375/WishList/GetItems',
-            dataType: 'html',
-            type: 'GET',
-            data: { },
-            success: function (data) {
-                $('#wishListContainer').html(data);
-                jQuery.noConflict();
-                $('#myModal').modal();
+            url: 'http://localhost:18375/WishList/DeleteItem',
+            data: {
+                itemID: id
+            },
+            success: function () {
+                alert('Товар удален из списка желаемых');
+                rem.remove();
             },
             error: function (xhr) {
                 alert(xhr.statusText);
             }
         })
-    })
-    $('.removeWishListCart').click(function () {
-        alert("dsad");
+        
     })
 })

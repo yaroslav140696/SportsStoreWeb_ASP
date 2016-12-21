@@ -14,7 +14,7 @@ namespace SportsStore.Domain.Abstract
 
         WishListLine DeleteItem(int itemID);
 
-        void SaveItem(WishListLine item, int productID);
+        void SaveItem(int userID, int productID);
 
         IQueryable<WishListLine> UserWishList(int userID);
      

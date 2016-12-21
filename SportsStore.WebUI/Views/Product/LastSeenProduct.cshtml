@@ -1,0 +1,20 @@
+﻿@model SportsStore.WebUI.Models.LastSeen
+
+<div class="panel">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h5>Недавно просмотреные</h5>
+        </div>
+        <div class="panel-body">
+            @{ int j = 1;}
+            @foreach(var line in Model.lastSeen)
+            {
+                string s = j + "."; 
+                <p>@s @Html.RouteLink(line.Name, 
+                     new { action = "ProductView", conroller = "Product", productID = line.ProductID },
+                     new { @class = "btn btn-link"})</p>
+                j++;
+            }
+        </div>
+    </div>
+</div>

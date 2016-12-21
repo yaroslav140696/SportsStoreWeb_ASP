@@ -11,17 +11,13 @@
     <script src="~/scripts/bootstrap.min.js"></script>
     <script src="~/scripts/CartScript.js"></script>
     <script src="~/scripts/ProductScript.js"></script>
-    <script src="~/scripts/WishListScript.js"></script>
+    <script src="~/scripts/WishListOpenScript.js"></script>
     <title>@ViewBag.Title</title>
 </head>
 <body>
     @{ Html.RenderAction("Navbar", "Nav"); }
 
     <div class="row panel">
-        @*<div class="col-xs-3">
-            @{ Html.RenderAction("Menu", "Nav"); }
-        </div>*@
-
         <div>
             @if (TempData["Message"] != null)
             {

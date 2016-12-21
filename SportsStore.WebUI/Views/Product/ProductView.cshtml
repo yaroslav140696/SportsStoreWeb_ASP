@@ -4,13 +4,14 @@
     ViewBag.Title = "ProductView";
     Layout = "~/Views/Shared/_ProductLayout.cshtml";
 }
-
+<script src="~/scripts/LastSeenScript.js"></script>
 <div class="panel panel-info">
     <div class="panel-heading">
         <h2>@Model.Name</h2>
     </div>
-
+    
     <div class="panel-body">
+        @Html.HiddenFor(x=>Model.ProductID, new { id="productID"} )
         <div class="col-md-3">
             <img src="~/Content/Pictures/nike_t-short.png" class="img-responsive">
         </div>
@@ -45,7 +46,7 @@
                 </div>
                 <div class="col-md-7">
                         <div class="pull-right">
-                            <button type="submit" value="@Model.ProductID" class="btn btn-warning">Добавить в список желаемого <span class="glyphicon glyphicon-heart"></span></button>
+                            <button type="submit" value="@Model.ProductID" class="btn btn-warning addToWishList">Добавить в список желаемого <span class="glyphicon glyphicon-heart"></span></button>
                         </div>
                 </div>
             </div>

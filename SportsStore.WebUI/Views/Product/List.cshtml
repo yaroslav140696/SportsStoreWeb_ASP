@@ -13,7 +13,11 @@
 @{
     ViewBag.Title = "Products";
 }
-<div class="col-xs-8 col-xs-offset-3">
+<div class="col-xs-4">
+    @{ Html.RenderAction("LastSeenProduct", "Product"); }
+</div>
+
+<div class="col-xs-8">
     @foreach (var p in Model.Products)
     {
         @Html.Partial("ProductSummary", p)

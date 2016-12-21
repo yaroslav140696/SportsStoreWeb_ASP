@@ -33,14 +33,19 @@ namespace SportsStore.Domain.Concrete
             return item;
         }
 
-        public void SaveItem(WishListLine item, int itemID)
+        public void SaveItem(int userID, int itemID)
         {
             var product = context.Products.Find(itemID);
-            item.Product = product;
-            var user = item.User;
-            user.WishList.Add(item);
-            context.WishListLines.Add(item);
-            context.SaveChanges();
+            var user = context.Users.Include(x=>x.WishList).FirstOrDefault(x=>x.userID==userID);
+            if (user.Email != "null@null")
+            {
+                var ifItemExist = user.WishList.Find(x => x.WishlistlineID == itemID);
+                if (ifItemExist == null)
+                {
+                    user.WishList.Add(new WishListLine { Product = product });
+                    context.SaveChanges();
+                }
+            }
         }
 
         public IQueryable<WishListLine> UserWishList(int userID)

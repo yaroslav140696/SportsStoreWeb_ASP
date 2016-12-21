@@ -18,12 +18,13 @@ $(document).ready(function () {
                 current.nextAll(".productSummary:first").text(data.productsValue);
 
                 $("#cartTotalCash").text(data.totalValue);
-                $("#totalQuantity").text(data.totalQuantity);
+                
                 var text = parseInt(current.next().text());
 
                 if (data.quantity >= 0) {
                     text += 1;
                     current.next().text(text);
+                    $("#totalQuantity").text(data.totalQuantity);
                 }
 
                 if (data.quantity === 0) {
